@@ -22,8 +22,8 @@ const Hero = () => {
               <div className="hero-text">
                 <h1>
                   La Tua
-                  <span className="slide">
-                    <span className="wrapper">
+                  <span className="slide sm:h-[1.1em] max-sm:h-4">
+                    <span className="wrapper ">
                       {words.map((word, index) => (
                         <span
                           key={index}

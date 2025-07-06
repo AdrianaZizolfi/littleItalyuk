@@ -38,7 +38,7 @@ const LogoAnimation = () => {
       {Array.from({ length: 8 }).map((_, i) => (
         <div
           key={i}
-          className="logo-item w-32 h-32 flex items-center justify-center rounded-2xl text-white "
+          className="logo-item w-24 h-24 md:w-32 md:h-32 flex items-center justify-center "
         >
           <img src={imageSrc} />
         </div>
@@ -54,7 +54,7 @@ const LogoAnimation = () => {
         minHeight: "384px",
       }}
     >
-      <div className="flex justify-center items-center h-full gap-12 md:gap-7">
+      <div className="flex justify-center items-center h-full gap-4 md:gap-7">
         <div className="logo-track relative w-32 h-full overflow-hidden">
           {renderRepeatedLogos("logo-1", "/images/can.png")}
         </div>

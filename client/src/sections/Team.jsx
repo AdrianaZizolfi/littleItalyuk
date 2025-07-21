@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import TitleHeader from "../components/TitleHeader";
-import { teamImgs } from "../constants";
+import { teamImgs, collabImgs } from "../constants";
 import { gsap } from "gsap/gsap-core";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -35,30 +35,51 @@ const Team = () => {
       );
     });
   return (
-    <div id='team' className='flex-center section-padding bg-gradient-to-br from-green-100 via-white to-red-100'>
-        <div className='w-full h-full p-10 md:px-10 px-5'>
-            <TitleHeader 
-            title="Il Team"
-            
-            />
+<div id="team" className="flex flex-col items-center section-padding bg-gradient-to-br from-green-100 via-white to-red-100">
+      {/* Fondatori Section */}
+      <div className="w-full h-full p-10 md:px-10 px-5 flex flex-col items-center">
+          <TitleHeader title="Fondatori" />
 
-            <div className='tech-grid'>
-            {teamImgs.map((icon) =>
-            <div key={icon.name} className="card-border team-card overflow-hidden group xl:rounded-full rounded-lg">
-                <div className="team-card-animated-bg"/>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 justify-items-center mt-8">
+            {teamImgs.map((icon) => (
+              <div
+                key={icon.name}
+                className="card-border team-card overflow-hidden group xl:rounded-full rounded-lg"
+              >
+                <div className="team-card-animated-bg" />
                 <div className="team-card-content">
-                    <div className="tech-icon-wrapper">
-                     <img src={icon.imgPath} className="xl:rounded-full"/>  
-                    </div>
-                    <div className="padding-x w-full">
-                        <p>{icon.name}</p>
-                    </div>
+                  <div className="tech-icon-wrapper">
+                    <img src={icon.imgPath} alt={icon.name} className="xl:rounded-full" />
+                  </div>
+                  <div className="padding-x w-full text-center">
+                    <p>{icon.name}</p>
+                  </div>
                 </div>
-            </div>
-            )}
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-      
+
+
+      {/* Collaboratori Section */}
+      <div className="w-full h-full p-10 md:px-10 px-5">
+        <TitleHeader title="Collaboratori" />
+        <div className="tech-grid">
+          {collabImgs.map((icon) => (
+            <div key={`${icon.name}-collab`} className="card-border team-card overflow-hidden group xl:rounded-full rounded-lg">
+              <div className="team-card-animated-bg" />
+              <div className="team-card-content">
+                <div className="tech-icon-wrapper">
+                  <img src={icon.imgPath} className="xl:rounded-full" />
+                </div>
+                <div className="padding-x w-full">
+                  <p>{icon.name}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-// import emailjs from "@emailjs/browser";
+import axios from "axios";
+import { getApiUrl } from "../config/api";
 
 import TitleHeader from "../components/TitleHeader";
 import LogoAnimation from "../components/LogoAnimation";
@@ -10,8 +11,23 @@ const Contact = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    contactType: "",
     message: "",
   });
+
+  // Add status state for success/error messages
+  const [status, setStatus] = useState({
+    message: "",
+    type: "" // 'success' or 'error'
+  });
+
+  const contactOptions = [
+    { value: "", label: "Seleziona un'opzione..." },
+    { value: "collabora", label: "Collabora con noi" },
+    { value: "sponsor", label: "Diventa Sponsor" },
+    { value: "vendor", label: "Diventa Vendor" },
+    { value: "generale", label: "Generale" }
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,23 +36,46 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Show loading state
+    setLoading(true);
+    setStatus({ message: "", type: "" }); // Clear previous status
 
-    // try {
-    //   await emailjs.sendForm(
-    //     import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-    //     import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
-    //     formRef.current,
-    //     import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
-    //   );
+    try {
+      const response = await axios.post(
+        getApiUrl('contact'), // Uses the API config
+        form,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      // Reset form and stop loading
-  //     setForm({ name: "", email: "", message: "" });
-  //   } catch (error) {
-  //     console.error("EmailJS Error:", error); // Optional: show toast
-  //   } finally {
-  //     setLoading(false); // Always stop loading, even on error
-  //   }
+      if (response.data.success) {
+        setStatus({
+          message: "Messaggio inviato con successo! Ti risponderemo presto.",
+          type: "success"
+        });
+        // Reset form
+        setForm({ name: "", email: "", contactType: "", message: "" });
+      }
+    } catch (error) {
+      let errorMessage = "Si è verificato un errore. Riprova più tardi.";
+      
+      if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.response?.data?.errors) {
+        // Handle validation errors
+        const errors = error.response.data.errors;
+        errorMessage = Object.values(errors).flat().join(', ');
+      }
+
+      setStatus({
+        message: errorMessage,
+        type: "error"
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,7 +83,6 @@ const Contact = () => {
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
           title="Get in Touch – Contattaci"
-          
         />
         <div className="grid-12-cols mt-16">
           <div className="xl:col-span-5">
@@ -64,6 +102,7 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Qual'e' il tuo nome??"
                     required
+                    disabled={loading}
                   />
                 </div>
 
@@ -77,7 +116,26 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Indirizzo email"
                     required
+                    disabled={loading}
                   />
+                </div>
+
+                <div>
+                  <label htmlFor="contactTopic">Tipo di Contatto</label>
+                  <select
+                    id="contactType"
+                    name="contactType"
+                    value={form.contactTopic}
+                    onChange={handleChange}
+                    required
+                    disabled={loading}
+                  >
+                    {contactOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
@@ -90,10 +148,11 @@ const Contact = () => {
                     placeholder="Come possiamo aiutare?"
                     rows="5"
                     required
+                    disabled={loading}
                   />
                 </div>
 
-                <button type="submit">
+                <button type="submit" disabled={loading}>
                   <div className="cta-button group">
                     <div className="bg-circle" />
                     <p className="text">
@@ -104,6 +163,17 @@ const Contact = () => {
                     </div>
                   </div>
                 </button>
+
+                {/* Status message */}
+                {status.message && (
+                  <div className={`mt-4 p-4 rounded-lg text-center ${
+                    status.type === 'success' 
+                      ? 'bg-green-100 text-green-800 border border-green-200' 
+                      : 'bg-red-100 text-red-800 border border-red-200'
+                  }`}>
+                    {status.message}
+                  </div>
+                )}
               </form>
             </div>
           </div>

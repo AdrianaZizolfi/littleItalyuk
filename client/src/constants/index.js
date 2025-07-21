@@ -1,20 +1,24 @@
 const navLinks = [
     {
+      name: "Home",
+      link: "/",
+    },
+    {
       name: "Chi Siamo",
       link: "#about",
     },
     {
       name: "Eventi",
-      link: "#eventi",
-    },
-    {
-      name: "Luxury",
       link: "/events",
     },
-    {
-        name: "Merchandising",
-        link: "/merchandising",
-      },
+    // {
+    //   name: "Luxury",
+    //   link: "/events",
+    // },
+    // {
+    //     name: "Merchandising",
+    //     link: "/merchandising",
+    //   },
    
   ];
 
@@ -103,14 +107,31 @@ const navLinks = [
       name: "Nome 3",
       imgPath: "/images/Rectangle3.png",
     },
+   
+  ];
+
+  const collabImgs = [
     {
-      name: "Nome 4",
+      name: "Nome 1",
       imgPath: "/images/Rectangle4.png",
     },
     {
-      name: "Nome 5",
+      name: "Nome 2",
       imgPath: "/images/Rectangle5.png",
     },
+    {
+      name: "Nome 3",
+      imgPath: "/images/Rectangle4.png",
+    },
+    {
+      name: "Nome 4",
+      imgPath: "/images/Rectangle5.png",
+    },
+    {
+      name: "Nome 5",
+      imgPath: "/images/Rectangle4.png",
+    },
+    
   ];
   
   
@@ -180,11 +201,11 @@ const navLinks = [
       imgPath: "/images/fb.png",
     },
     
-    // {
-    //   name: "linkedin",
-    //   url: "https://www.linkedin.com/in/adriana-zizolfi-/",
-    //   imgPath: "/images/linkedin.png",
-    // },
+    {
+      name: "tiktok",
+      url: "https://www.linkedin.com/in/adriana-zizolfi-/",
+      imgPath: "/images/linkedin.png",
+    },
   ];
   
   export {
@@ -196,5 +217,6 @@ const navLinks = [
     expLogos,
     socialImgs,
     teamImgs,
+    collabImgs,
     navLinks,
   };

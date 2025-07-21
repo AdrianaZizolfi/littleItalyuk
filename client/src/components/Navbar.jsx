@@ -94,7 +94,7 @@ const Navbar = () => {
 
                 {/* Desktop Contact Button */}
                 <a 
-                    href='#contatti' 
+                    href='contact' 
                     className='contact-btn group'
                     onClick={handleContactClick}
                 >

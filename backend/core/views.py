@@ -10,12 +10,17 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from datetime import timedelta
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 from .models import Page, EditableContent, Section, SectionContent, ContactSubmission, SiteSettings
 from .serializers import (
     PageSerializer, EditableContentSerializer, SectionSerializer, 
-    SectionContentSerializer, ContactSubmissionSerializer, SiteSettingsSerializer
+    SectionContentSerializer, ContactSubmissionSerializer, SiteSettingsSerializer, PagePublicSerializer
 )
-
+################################################################################
+#
+#  ADMIN DASHBOARD VIEWS
+#
+################################################################################
 class PageViewSet(viewsets.ModelViewSet):
     queryset = Page.objects.all()
     serializer_class = PageSerializer
@@ -134,7 +139,7 @@ def submit_contact_form(request):
             f"Type: {submission.topic}\n\n"
             f"Message:\n{submission.message}"
         )
-        recipient = ['your-backoffice@email.com']  # Replace with your real address
+        recipient = ['adrianazizolfi0@gmail.com']  # Replace with your real address
 
         try:
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient)
@@ -256,3 +261,23 @@ def check_auth(request):
             }
         })
     return Response({'authenticated': False})
+
+###########################################################################
+#
+# FRONTEND VIEWS
+#
+###########################################################################
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def public_event_page(request):
+    page = get_object_or_404(Page, slug='eventi', is_active=True)
+    serializer = PagePublicSerializer(page)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def public_sangennaro_page(request):
+    page = get_object_or_404(Page, slug='san-gennaro', is_active=True)
+    serializer = PagePublicSerializer(page)
+    return Response(serializer.data)

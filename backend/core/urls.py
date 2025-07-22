@@ -26,7 +26,7 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     PageViewSet, SectionViewSet, ContactSubmissionViewSet, 
     SiteSettingsViewSet, AdminDashboardViewSet,
-    admin_login, admin_logout, check_auth, submit_contact_form
+    admin_login, admin_logout, check_auth, submit_contact_form, public_event_page, public_sangennaro_page
 )
 
 router = DefaultRouter()
@@ -37,6 +37,8 @@ router.register(r'site-settings', SiteSettingsViewSet, basename='site-settings')
 router.register(r'dashboard', AdminDashboardViewSet, basename='dashboard')
 
 urlpatterns = [
+    path('api/public/pages/eventi/', public_event_page, name='public_eventi'),
+    path('api/public/pages/san-gennaro/', public_sangennaro_page, name='public_sangennaro'),
     path('api/', include(router.urls)),
     path('api/contact/', submit_contact_form, name='submit_contact_form'),
     path('api/auth/login/', admin_login, name='admin_login'),

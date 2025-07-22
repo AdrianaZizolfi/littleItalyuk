@@ -8,8 +8,9 @@ const Events = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/pages/eventi/')  // Make sure this endpoint exists in Django
+    axios.get('/api/public/pages/eventi/') 
       .then(res => {
+        console.log('📦 Raw response:', res.data);
         setPageData(res.data);
         setLoading(false);
       })
@@ -18,6 +19,7 @@ const Events = () => {
         setLoading(false);
       });
   }, []);
+  
 
   if (loading) return <div className="pt-20 text-center">Loading...</div>;
   if (!pageData) return <div className="pt-20 text-center">Page not found</div>;
@@ -28,10 +30,11 @@ const Events = () => {
   (pageData.content ?? []).forEach(c => {
     content[c.content_key] = c.content_value;
   });
+  console.log('💡 Content:', content);
 
   return (
     <div className="min-h-screen pt-20">
-      <h1 className="text-4xl font-bold text-center mb-8">{content.hero_title}</h1>
+      <h1 className="text-4xl font-bold text-center mb-8">{content.hero_title || '🛑 Missing hero_title'}</h1>
 
       {/* First row */}
       <div className="grid grid-cols-12 gap-6 mb-12 px-6">
@@ -47,9 +50,9 @@ const Events = () => {
           <p className="text-lg text-gray-600 mb-4">{content.section_1_p1}</p>
           <p className="text-lg text-gray-600">{content.section_1_p2}</p>
           <Button 
-            text={content.section_1_button_text || "Scopri di più"}
+            text={content.section_1_button_text || "Scopri di piu'"}
             className="md:w-80 md:h-16 w-60 h-12"
-            href={content.section_1_button_link || "#"}
+            href="/sangennaro"
           />
         </div>
       </div>
@@ -61,7 +64,7 @@ const Events = () => {
           <p className="text-lg text-gray-600 mb-4">{content.section_2_p1}</p>
           <p className="text-lg text-gray-600">{content.section_2_p2}</p>
           <Button 
-            text={content.section_2_button_text || "Scopri di più"}
+            text={content.section_2_button_text || "Scopri di piu'"}
             className="md:w-80 md:h-16 w-60 h-12"
             href={content.section_2_button_link || "#"}
           />

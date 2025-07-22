@@ -41,3 +41,12 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
         fields = ['id', 'site_name', 'site_description', 'contact_email', 
                  'contact_phone', 'address', 'social_facebook', 
                  'social_instagram', 'social_twitter']
+        
+#Frontend
+
+class PagePublicSerializer(serializers.ModelSerializer):
+    content = EditableContentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Page
+        fields = ['title', 'slug', 'content']

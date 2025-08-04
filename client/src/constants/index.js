@@ -40,7 +40,7 @@ const navLinks = [
     { value: 90, suffix: "%", label: "Client Retention Rate" },
   ];
   
-  const logoIconsList = [
+  const VendorsLogoList = [
     {
       imgPath: "/images/logos/company-logo-1.png",
     },
@@ -203,15 +203,15 @@ const navLinks = [
     
     {
       name: "tiktok",
-      url: "https://www.linkedin.com/in/adriana-zizolfi-/",
-      imgPath: "/images/linkedin.png",
+      url: "https://www.tiktok.com/@littleitalyukldn?_t=ZN-8yY5ZNqY4AA&_r=1",
+      imgPath: "/images/tt.png",
     },
   ];
   
   export {
     words,
     abilities,
-    logoIconsList,
+    VendorsLogoList,
     counterItems,
     expCards,
     expLogos,

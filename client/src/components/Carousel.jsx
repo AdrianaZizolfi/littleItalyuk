@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ImageCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,32 +9,32 @@ const ImageCarousel = () => {
   const images = [
     {
       id: 1,
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-      title: "Mountain Landscape",
+      src: "/images/img_1.jpg",
+      title: "San Gennaro Fest 2024",
       alt: "Beautiful mountain landscape"
     },
     {
       id: 2,
-      src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=600&fit=crop",
-      title: "Ocean Sunset",
+      src: "/images/img_2.jpg",
+      title: "San Gennaro Fest 2024",
       alt: "Ocean sunset view"
     },
     {
       id: 3,
-      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop",
-      title: "Forest Path",
+      src: "/images/img_3.jpg",
+      title: "San Gennaro Fest 2024",
       alt: "Path through the forest"
     },
     {
       id: 4,
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-      title: "Desert Dunes",
+      src: "/images/img_4.jpg",
+      title: "San Gennaro Fest 2024",
       alt: "Desert landscape with dunes"
     },
     {
       id: 5,
-      src: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop",
-      title: "City Skyline",
+      src: "/images/img_5.jpg",
+      title: "San Gennaro Fest 2024",
       alt: "Modern city skyline"
     }
   ];
@@ -129,7 +130,8 @@ const ImageCarousel = () => {
           disabled={isAnimating}
           className="absolute left-4 md:left-8 z-20 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <span className="text-white text-xl font-bold">‹</span>
+          {/* <span className="text-white text-xl font-bold">‹</span> */}
+          <ChevronLeft className="text-white w-6 h-6" />
         </button>
 
         <button
@@ -137,7 +139,8 @@ const ImageCarousel = () => {
           disabled={isAnimating}
           className="absolute right-4 md:right-8 z-20 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <span className="text-white text-xl font-bold">›</span>
+          {/* <span className="text-white text-xl font-bold">›</span> */}
+          <ChevronRight className="text-white w-6 h-6" />
         </button>
       </div>
 

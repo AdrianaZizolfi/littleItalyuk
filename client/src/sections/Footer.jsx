@@ -68,11 +68,20 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col justify-center">
-          <p className="text-center md:text-end">
-            © {new Date().getFullYear()} Little Italy UK Ldn. All rights reserved.<br />
-            Developed by Aether Creative London
-          </p>
-        </div>
+  <p className="text-center md:text-end">
+    © {new Date().getFullYear()} Little Italy UK Ldn. All rights reserved.<br />
+    Developed by{' '}
+    <a 
+      href="https://www.aethercreativeagency.co.uk" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="text-blue-600 hover:underline"
+    >
+      Aether Creative London
+    </a>
+  </p>
+</div>
+
       </div>
     </footer>
   );

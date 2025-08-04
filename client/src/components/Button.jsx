@@ -2,17 +2,24 @@ import { useNavigate } from 'react-router-dom';
 
 /**
  * A reusable CTA button component.
- * Supports both scrolling to contact section and navigation to other pages.
+ * Supports both scrolling to contact section, navigation to other pages, and custom onClick handlers.
  * 
  * @param {string} text - Button text
  * @param {string} className - Additional CSS classes
  * @param {string} href - URL/route to navigate to (for page navigation)
+ * @param {function} onClick - Custom click handler (overrides default behavior)
  */
-const Button = ({ text, className, href }) => {
+const Button = ({ text, className, href, onClick }) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
+
+    // If custom onClick is provided, use it instead of default behavior
+    if (onClick) {
+      onClick(e);
+      return;
+    }
 
     // If href is provided, navigate to another page
     if (href) {
@@ -21,7 +28,7 @@ const Button = ({ text, className, href }) => {
     }
 
     // Otherwise, scroll to contact section (default behavior)
-    const target = document.getElementById("contact");
+    const target = document.getElementById("contatti");
     
     if (target) {
       const offset = window.innerHeight * 0.15;

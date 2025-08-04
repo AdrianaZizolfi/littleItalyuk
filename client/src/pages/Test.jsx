@@ -1,80 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Contact from '../sections/Contacts';
+import Button from '../components/Button';
 
-const Test = () => {
+const Events = () => {
   const [pageData, setPageData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/pages/events/')  // adjust URL to your API
-      .then(res => res.json())
-      .then(data => setPageData(data));
+    axios.get('/api/public/pages/eventi/') 
+      .then(res => {
+        console.log('📦 Raw response:', res.data);
+        setPageData(res.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to load page data', err);
+        setLoading(false);
+      });
   }, []);
+  
 
-  if (!pageData) return <p>Loading...</p>;
+  if (loading) return <div className="pt-20 text-center">Loading...</div>;
+  if (!pageData) return <div className="pt-20 text-center">Page not found</div>;
 
-  // Helper to get content by key
-  const getContent = (key) => {
-    const item = pageData.content.find(c => c.content_key === key);
-    return item ? item.content_value : '';
-  };
+
+
+  const content = {};
+  (pageData.content ?? []).forEach(c => {
+    content[c.content_key] = c.content_value;
+  });
+  console.log('💡 Content:', content);
 
   return (
     <div className="min-h-screen pt-20">
-      <h1 className="text-4xl font-bold text-center mb-8">{pageData.title}</h1>
+      <h1 className="text-4xl font-bold text-center mb-8">{content.hero_title || '🛑 Missing hero_title'}</h1>
 
-      {/* Example for editable content */}
+      {/* First row */}
       <div className="grid grid-cols-12 gap-6 mb-12 px-6">
         <div className="col-span-8">
           <img 
-            src={getContent('hero_image') || '/images/sgennaro.jpg'} 
-            alt={getContent('hero_image_alt') || 'Event Image'}
+            src={content.image_1_url} 
+            alt="Luxury Event Experience"
             className="w-full h-96 object-cover rounded-3xl"
           />
         </div>
         <div className="col-span-4 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold mb-4">{getContent('hero_title') || 'Festa di S. Gennaro'}</h2>
-          <p className="text-lg text-gray-600 mb-4">{getContent('hero_description') || 'Immergiti in eventi...'}</p>
-          <p className="text-lg text-gray-600">{getContent('hero_extra') || 'Dalla location esclusiva...'}</p>
+          <h2 className="text-3xl font-bold mb-4">{content.section_1_title}</h2>
+          <p className="text-lg text-gray-600 mb-4">{content.section_1_p1}</p>
+          <p className="text-lg text-gray-600">{content.section_1_p2}</p>
           <Button 
-            text={getContent('hero_button_text') || "Scopri di più"}
+            text={content.section_1_button_text || "Scopri di piu'"}
             className="md:w-80 md:h-16 w-60 h-12"
-            href={getContent('hero_button_url') || '/sangennaro'}
+            href="/sangennaro"
           />
         </div>
       </div>
 
-      {/* Render sections dynamically */}
-      {pageData.sections.map(section => (
-        section.is_active && (
-          <SectionRenderer key={section.id} section={section} />
-        )
-      ))}
+      {/* Second row */}
+      <div className="grid grid-cols-12 gap-6 mb-12 px-6">
+        <div className="col-span-4 flex flex-col justify-center">
+          <h2 className="text-3xl font-bold mb-4">{content.section_2_title}</h2>
+          <p className="text-lg text-gray-600 mb-4">{content.section_2_p1}</p>
+          <p className="text-lg text-gray-600">{content.section_2_p2}</p>
+          <Button 
+            text={content.section_2_button_text || "Scopri di piu'"}
+            className="md:w-80 md:h-16 w-60 h-12"
+            href={content.section_2_button_link || "#"}
+          />
+        </div>
+        <div className="col-span-8">
+          <img 
+            src={content.image_2_url} 
+            alt="Fashion Show"
+            className="w-full h-96 object-cover rounded-3xl"
+          />
+        </div>
+      </div>
 
       <Contact />
     </div>
   );
 };
 
-// Example SectionRenderer component to render various section types dynamically
-const SectionRenderer = ({ section }) => {
-  switch (section.section_type) {
-    case 'hero':
-      return (
-        <div className="hero-section">
-          <h2>{section.title}</h2>
-          {/* Render section.items as needed */}
-        </div>
-      );
-    case 'text_image':
-      return (
-        <div className="text-image-section">
-          <h2>{section.title}</h2>
-          {/* More rendering */}
-        </div>
-      );
-    // Add other section types...
-    default:
-      return null;
-  }
-};
-
-export default Test;
+export default Events;

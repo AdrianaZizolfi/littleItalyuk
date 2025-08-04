@@ -2,6 +2,66 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+import uuid
+
+class Ticket(models.Model):
+    STATUS_CHOICES = [
+        ('valid', 'Valid'),
+        ('used', 'Used'),
+        ('cancelled', 'Cancelled'),
+    ]
+    
+    # Basic ticket information
+    ticket_id = models.CharField(max_length=100, unique=True, db_index=True)
+    full_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    
+    # QR Code and status
+    qr_code_url = models.URLField(max_length=500)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='valid')
+    
+    # Timestamps
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+    used_at = models.DateTimeField(null=True, blank=True)
+    
+    # Event information (optional - for future events)
+    event_name = models.CharField(max_length=200, default='San Gennaro Fest 2025')
+    event_date = models.DateTimeField(null=True, blank=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Ticket'
+        verbose_name_plural = 'Tickets'
+    
+    def __str__(self):
+        return f"{self.ticket_id} - {self.full_name}"
+    
+    def mark_as_used(self):
+        """Mark ticket as used"""
+        self.status = 'used'
+        self.used_at = timezone.now()
+        self.save()
+    
+    def is_valid(self):
+        """Check if ticket is valid and not used"""
+        return self.status == 'valid'
+
+
+class TicketScan(models.Model):
+    """Track ticket scans for analytics"""
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='scans')
+    scanned_at = models.DateTimeField(default=timezone.now)
+    scanned_by = models.CharField(max_length=100, blank=True)  # Staff member name
+    location = models.CharField(max_length=100, blank=True)   # Entrance location
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    
+    class Meta:
+        ordering = ['-scanned_at']
+    
+    def __str__(self):
+        return f"Scan of {self.ticket.ticket_id} at {self.scanned_at}"
 
 class Page(models.Model):
     TEMPLATE_CHOICES = [

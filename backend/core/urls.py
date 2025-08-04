@@ -26,7 +26,8 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     PageViewSet, SectionViewSet, ContactSubmissionViewSet, 
     SiteSettingsViewSet, AdminDashboardViewSet,
-    admin_login, admin_logout, check_auth, submit_contact_form, public_event_page, public_sangennaro_page
+    admin_login, admin_logout, check_auth, submit_contact_form, public_event_page, public_sangennaro_page, create_ticket, create_ticket_simple, validate_ticket, use_ticket,
+    ticket_stats
 )
 
 router = DefaultRouter()
@@ -44,4 +45,19 @@ urlpatterns = [
     path('api/auth/login/', admin_login, name='admin_login'),
     path('api/auth/logout/', admin_logout, name='admin_logout'),
     path('api/auth/check/', check_auth, name='check_auth'),
+    ######################################################################
+    # BOOKING
+    ######################################################################
+    # Ticket creation
+    path('api/tickets/', create_ticket, name='create_ticket'),
+    
+    # Alternative simple endpoint (if you prefer non-DRF approach)
+    path('api/tickets/simple/', create_ticket_simple, name='create_ticket_simple'),
+    
+    # Ticket validation and usage
+    path('api/tickets/<str:ticket_id>/validate/', validate_ticket, name='validate_ticket'),
+    path('api/tickets/<str:ticket_id>/use/', use_ticket, name='use_ticket'),
+    
+    # Statistics (for admin)
+    path('api/tickets/stats/', ticket_stats, name='ticket_stats'),
 ]

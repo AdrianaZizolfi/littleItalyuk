@@ -13,6 +13,7 @@ import SanGennaro from './pages/SanGennaro';
 import AdminDashboard from './pages/AdminDashboard';
 
 import Login from "./pages/Login";
+import FashionShow from './pages/FashionShow';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("access");
@@ -44,6 +45,7 @@ function App() {
         <Route path="/merchandising" element={<Merchandising />} />
         <Route path="/events" element={<Events />} />
         <Route path="/sangennaro" element={<SanGennaro />} />
+        <Route path="/fashion" element={<FashionShow />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
 

@@ -168,7 +168,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'client', 'dist', 'assets'),  # point to React build assets (JS, CSS, images)
+    os.path.join(BASE_DIR, 'client', 'dist'),  # point to React build assets (JS, CSS, images)
 ]
 
 MEDIA_URL = '/media/'

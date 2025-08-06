@@ -53,4 +53,4 @@ EXPOSE 8000
 
 # Entrypoint: run migrations then collectstatic then start Gunicorn
 # (Optional: move migrate+collectstatic to Render Release Command and make CMD just start Gunicorn)
-CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn website.wsgi:application --bind 0.0.0.0:8000 --workers 3"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn website.wsgi:application --bind 0.0.0.0:$PORT --workers 3"]

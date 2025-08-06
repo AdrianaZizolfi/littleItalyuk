@@ -19,7 +19,6 @@ frozendict==2.4.6
 frozenlist==1.7.0
 idna==3.10
 joblib==1.5.1
-MetaTrader5==5.0.5200
 multidict==6.6.3
 multitasking==0.0.12
 nltk==3.9.1

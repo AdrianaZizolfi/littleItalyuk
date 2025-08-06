@@ -38,8 +38,16 @@ COPY backend/ ./
 
 # Ensure the client dist path exists and copy the built frontend into it
 RUN mkdir -p /app/backend/client/dist
+# COPY --from=frontend-build /app/client/dist /app/backend/client/dist
+
+# Copy the built frontend
 COPY --from=frontend-build /app/client/dist /app/backend/client/dist
 
+# Add this line to flatten the static folder:
+RUN if [ -d "/app/backend/client/dist/static" ]; then \
+      cp -r /app/backend/client/dist/static/* /app/backend/client/dist/ && \
+      rm -rf /app/backend/client/dist/static; \
+    fi
 # Ensure staticfiles output exists and is writable
 RUN mkdir -p /app/backend/staticfiles
 

@@ -51,4 +51,4 @@ RUN python manage.py collectstatic --noinput || true
 EXPOSE 8000
 
 # Entrypoint: run migrations then start gunicorn
-CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn projectname.wsgi:application --bind 0.0.0.0:8000 --workers 3"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn website.wsgi:application --bind 0.0.0.0:8000 --workers 3"]

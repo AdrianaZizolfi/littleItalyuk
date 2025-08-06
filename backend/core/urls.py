@@ -21,6 +21,8 @@
 # ]
 
 # urls.py
+from django.views.generic import TemplateView
+from django.urls import re_path
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
@@ -38,6 +40,7 @@ router.register(r'site-settings', SiteSettingsViewSet, basename='site-settings')
 router.register(r'dashboard', AdminDashboardViewSet, basename='dashboard')
 
 urlpatterns = [
+    re_path(r'^(?!api/|admin/|media/).*$', TemplateView.as_view(template_name='index.html')),
     path('api/public/pages/eventi/', public_event_page, name='public_eventi'),
     path('api/public/pages/san-gennaro/', public_sangennaro_page, name='public_sangennaro'),
     path('api/', include(router.urls)),

@@ -12,4 +12,8 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'static',  // Add just these two lines
+  },
 });

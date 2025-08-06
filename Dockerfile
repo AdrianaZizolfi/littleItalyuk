@@ -31,19 +31,13 @@ RUN pip install -r requirements.txt
 FROM python-base AS final
 WORKDIR /app
 
-# Copy backend source (manage.py and project package expected under /app)
-COPY backend/ ./
+# Copy backend source (including manage.py and website package)
+COPY backend/ ./backend/
 
-# Ensure expected client dist folders exist
-RUN mkdir -p /app/client/dist
-RUN mkdir -p /app/client/dist/assets
-
-# Copy the built frontend from frontend-build stage into the exact path expected by settings.py
-COPY --from=frontend-build /app/client/dist /app/client/dist
-
-# Also copy a convenient fallback location
-RUN mkdir -p /app/frontend_dist
-COPY --from=frontend-build /app/client/dist /app/frontend_dist
+# Copy the built frontend from frontend-build into the exact path Django expects
+# BASE_DIR in settings.py = /app/backend, so "client/dist/assets" = /app/backend/client/dist/assets
+RUN mkdir -p /app/backend/client/dist
+COPY --from=frontend-build /app/client/dist /app/backend/client/dist
 
 # Set default env vars (override on Render)
 ENV DJANGO_SETTINGS_MODULE=website.settings
@@ -53,7 +47,5 @@ ENV PORT=8000
 
 EXPOSE 8000
 
-# IMPORTANT: do NOT run collectstatic during image build.
-# Run migrations & collectstatic at runtime (CMD) or better: use Render "Release Command".
 # Entrypoint: run migrations then collectstatic then start Gunicorn
 CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn website.wsgi:application --bind 0.0.0.0:8000 --workers 3"]

@@ -40,7 +40,7 @@ RUN mkdir -p /app/static_src/frontend
 RUN cp -r /app/frontend_dist/* /app/static_src/frontend/
 
 # Set env vars defaults (override on Render)
-ENV DJANGO_SETTINGS_MODULE=projectname.settings
+ENV DJANGO_SETTINGS_MODULE=website.settings
 ENV PYTHONPATH=/app
 ENV PATH="/root/.local/bin:$PATH"
 

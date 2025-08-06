@@ -17,6 +17,7 @@ djangorestframework==3.16.0
 djangorestframework_simplejwt==5.5.0
 frozendict==2.4.6
 frozenlist==1.7.0
+gunicorn
 idna==3.10
 joblib==1.5.1
 multidict==6.6.3
@@ -48,5 +49,6 @@ typing_extensions==4.14.1
 tzdata==2025.2
 urllib3==2.5.0
 websockets==15.0.1
+whitenoise
 yarl==1.20.1
 

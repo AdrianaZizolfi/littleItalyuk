@@ -7,33 +7,41 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const Team = () => {
-    // Animate the tech cards in the skills section
-    useGSAP(() => {
-      // This animation is triggered when the user scrolls to the #skills wrapper
-      // The animation starts when the top of the wrapper is at the center of the screen
-      // The animation is staggered, meaning each card will animate in sequence
-      // The animation ease is set to "power2.inOut", which is a slow-in fast-out ease
-      gsap.fromTo(
-        ".team-card",
-        {
-          // Initial values
-          y: 50, // Move the cards down by 50px
-          opacity: 0, // Set the opacity to 0
-        },
-        {
-          // Final values
-          y: 0, // Move the cards back to the top
-          opacity: 1, // Set the opacity to 1
-          duration: 1, // Duration of the animation
-          ease: "power2.inOut", // Ease of the animation
-          stagger: 0.2, // Stagger the animation by 0.2 seconds
-          scrollTrigger: {
-            trigger: "#team", // Trigger the animation when the user scrolls to the #skills wrapper
-            start: "top center", // Start the animation when the top of the wrapper is at the center of the screen
-          },
-        }
-      );
+useGSAP(() => {
+  // Entrata con scroll
+  gsap.fromTo(
+    ".team-card",
+    { y: 50, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: "power2.inOut",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: "#team",
+        start: "top center",
+      },
+    }
+  );
+
+  // Hover: immagine → descrizione
+  document.querySelectorAll(".team-card").forEach(card => {
+    const img = card.querySelector("img");
+    const desc = card.querySelector(".team-description");
+
+    card.addEventListener("mouseenter", () => {
+      gsap.to(img, { opacity: 0, duration: 0.4, ease: "power2.out" });
+      gsap.to(desc, { opacity: 1, duration: 0.4, ease: "power2.out" });
     });
+
+    card.addEventListener("mouseleave", () => {
+      gsap.to(img, { opacity: 1, duration: 0.4, ease: "power2.out" });
+      gsap.to(desc, { opacity: 0, duration: 0.4, ease: "power2.out" });
+    });
+  });
+});
+
   return (
 <div id="team" className="flex flex-col items-center section-padding bg-gradient-to-br from-green-100 via-white to-red-100">
       {/* Fondatori Section */}
@@ -50,6 +58,9 @@ const Team = () => {
                 <div className="team-card-content">
                   <div className="tech-icon-wrapper">
                     <img src={icon.imgPath} alt={icon.name} className="xl:rounded-full" />
+                    <div className="team-description absolute inset-0 flex items-center justify-center p-4 text-center bg-white/80 opacity-0">
+                    <p className="text-gray-800 text-sm">{icon.description}</p>
+                  </div>
                   </div>
                   <div className="padding-x w-full text-center">
                     <p>{icon.name}</p>
@@ -71,6 +82,9 @@ const Team = () => {
               <div className="team-card-content">
                 <div className="tech-icon-wrapper">
                   <img src={icon.imgPath} className="xl:rounded-full" />
+                    <div className="team-description absolute inset-0 flex items-center justify-center p-4 text-center bg-white/80 opacity-0">
+                    <p className="text-gray-800 text-sm">{icon.description}</p>
+                    </div>
                 </div>
                 <div className="padding-x w-full">
                   <p>{icon.name}</p>

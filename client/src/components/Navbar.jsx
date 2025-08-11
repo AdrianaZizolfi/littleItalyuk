@@ -70,25 +70,35 @@ const Navbar = () => {
                 {/* Desktop Navigation */}
                 <nav className='desktop'>
                    <ul>
-                    {navLinks.map(({link, name}) => (
-                        <li key={name} className='group'>
-                            {/* Use Link for pages, custom handler for sections */}
-                            {link.startsWith('/') ? (
-                                <Link to={link}>
-                                    <span>{name}</span>
-                                    <span className='underline'></span>
-                                </Link>
-                            ) : (
-                                <a 
-                                    href={link}
-                                    onClick={(e) => handleSectionClick(e, link)}
-                                >
-                                    <span>{name}</span>
-                                    <span className='underline'></span>
-                                </a>
-                            )}
-                        </li>
-                    ))}
+                    {navLinks.map(({ link, name, children }) => (
+  <li key={name} className='group relative'>
+    {link.startsWith('/') ? (
+      <Link to={link}>
+        <span>{name}</span>
+        <span className='underline'></span>
+      </Link>
+    ) : (
+      <a href={link} onClick={(e) => handleSectionClick(e, link)}>
+        <span>{name}</span>
+        <span className='underline'></span>
+      </a>
+    )}
+
+    {/* Submenu */}
+    {children && (
+      <ul className='submenu absolute top-full left-0 bg-white shadow-lg rounded p-2 hidden group-hover:block z-50'>
+        {children.map(({ name: childName, link: childLink }) => (
+          <li key={childName}>
+            <Link to={childLink} className='block px-4 py-2 hover:bg-gray-100'>
+              {childName}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    )}
+  </li>
+))}
+
                     </ul> 
                 </nav>
 

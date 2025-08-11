@@ -9,33 +9,45 @@ const ImageCarousel = () => {
   const images = [
     {
       id: 1,
-      src: "/images/img_1.jpg",
+      src: "/images/DSC08055.jpg",
       title: "San Gennaro Fest 2024",
-      alt: "Beautiful mountain landscape"
+      alt: "San Gennaro Fest 2024"
     },
     {
       id: 2,
-      src: "/images/img_2.jpg",
+      src: "/images/DSC08190.jpg",
       title: "San Gennaro Fest 2024",
-      alt: "Ocean sunset view"
+      alt: "San Gennaro Fest 2024"
     },
     {
       id: 3,
-      src: "/images/img_3.jpg",
+      src: "/images/DSC06808.jpg",
       title: "San Gennaro Fest 2024",
-      alt: "Path through the forest"
+      alt: "San Gennaro Fest 2024"
     },
     {
       id: 4,
-      src: "/images/img_4.jpg",
-      title: "San Gennaro Fest 2024",
-      alt: "Desert landscape with dunes"
+      src: "/images/IMG_1778.jpg",
+      title: "Fashion Show 2024",
+      alt: "Fashion Show 2024"
     },
     {
       id: 5,
-      src: "/images/img_5.jpg",
-      title: "San Gennaro Fest 2024",
-      alt: "Modern city skyline"
+      src: "/images/IMG_1642 (1).jpg",
+      title: "Fashion Show 2024",
+      alt: "Fashion Show 2024"
+    },
+    {
+      id: 6,
+      src: "/images/_LE_1884.jpg",
+      title: "Fashion Show 2024",
+      alt: "Fashion Show 2024"
+    },
+    {
+      id: 7,
+      src: "/images/IMG_1642 (1).jpg",
+      title: "Fashion Show 2024",
+      alt: "Fashion Show 2024"
     }
   ];
 

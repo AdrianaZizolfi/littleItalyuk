@@ -10,6 +10,10 @@ const navLinks = [
     {
       name: "Eventi",
       link: "/events",
+      children: [
+      { name: 'S.Gennaro Fest', link: '/sangennaro' },
+      { name: 'Fashion Show', link: '/fashion' }
+    ]
     },
     // {
     //   name: "Luxury",
@@ -42,38 +46,38 @@ const navLinks = [
   
   const VendorsLogoList = [
     {
-      imgPath: "/images/logos/company-logo-1.png",
+      imgPath: "/images/logos/logo1.jpg",
     },
     {
-      imgPath: "/images/logos/company-logo-2.png",
+      imgPath: "/images/logos/logo2.png",
     },
     {
-      imgPath: "/images/logos/company-logo-3.png",
+      imgPath: "/images/logos/logo3.png",
     },
     {
-      imgPath: "/images/logos/company-logo-4.png",
+      imgPath: "/images/logos/logo4.png",
     },
     {
-      imgPath: "/images/logos/company-logo-5.png",
+      imgPath: "/images/logos/logo1.jpg",
     },
     {
-      imgPath: "/images/logos/company-logo-6.png",
+      imgPath: "/images/logos/logo2.png",
     },
     {
-      imgPath: "/images/logos/company-logo-7.png",
+      imgPath: "/images/logos/logo3.png",
     },
     {
-      imgPath: "/images/logos/company-logo-8.png",
+      imgPath: "/images/logos/logo4.png",
     },
-    {
-      imgPath: "/images/logos/company-logo-9.png",
-    },
-    {
-      imgPath: "/images/logos/company-logo-10.png",
-    },
-    {
-      imgPath: "/images/logos/company-logo-11.png",
-    },
+    // {
+    //   imgPath: "/images/logos/company-logo-9.png",
+    // },
+    // {
+    //   imgPath: "/images/logos/company-logo-10.png",
+    // },
+    // {
+    //   imgPath: "/images/logos/company-logo-11.png",
+    // },
   ];
   
   const abilities = [

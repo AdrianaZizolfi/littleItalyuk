@@ -124,8 +124,8 @@ const navLinks = [
       description:"Angelica svolge un ruolo fondamentale, supportando Little Italy UK nella sua missione di unire la comunita' italiana a Londra e nel Regno Unito. Gestisce le attivita' amministrative, le comunicazioni e la logistica degli eventi, oltre a curare un gruppo WhatsApp per promuovere iniziative di networking e scambio culturale.",
     },
     {
-      name: "Angela",
-      imgPath: "/images/angela.jpg",
+      name: "Nicoletta",
+      imgPath: "/images/nicoletta.jpg",
       description:"Vivo a Londra da anni e lavoro come Senior Software Engineer. Amo viaggiare, leggere, ascoltare rock classico, imparare lingue e creare con l’uncinetto, ma la mia vera passione e' la cucina, legata alle mie radici italiane. Collaboro con LittleItalyUK, gestendo i gruppi Italian Food Lovers e Servizi Amministrativi per supportare la comunita' italiana a Londra.",
     },
     {

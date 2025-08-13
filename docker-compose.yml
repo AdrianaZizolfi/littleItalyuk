@@ -3,13 +3,23 @@ version: '3.8'
 services:
   web:
     build: .
-    ports:
-      - "80:80"  # expose Nginx to host
+    command: >
+      sh -c "
+      cd /app/client &&
+      npm install &&
+      npm run build &&
+      cp -r dist/* /app/backend/static/ &&
+      cd /app/backend &&
+      python manage.py collectstatic --noinput &&
+      python manage.py migrate &&
+      gunicorn website.wsgi:application --bind 0.0.0.0:8000 --workers 3
+      "
     volumes:
       - ./backend:/app/backend
       - ./client:/app/client
       - db_data:/app/backend/db.sqlite3
-    restart: always
+    ports:
+      - "8000:8000"
 
 volumes:
   db_data:

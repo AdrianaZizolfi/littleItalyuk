@@ -8,6 +8,7 @@ services:
       cd /app/client &&
       npm install &&
       npm run build &&
+      mkdir -p /app/backend/static &&
       cp -r dist/* /app/backend/static/ &&
       cd /app/backend &&
       python manage.py collectstatic --noinput &&

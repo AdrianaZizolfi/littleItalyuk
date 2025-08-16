@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: '/static/',  // Add this line!
   server: {
     proxy: {
       '/api': {
@@ -14,6 +15,5 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    assetsDir: 'static',  // Add just these two lines
   },
 });

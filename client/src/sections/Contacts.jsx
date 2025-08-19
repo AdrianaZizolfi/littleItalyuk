@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import axios from "axios";
 import { getApiUrl } from "../config/api";
+import { API_BASE_URL, API_ENDPOINTS } from "../config/api";
 
 import TitleHeader from "../components/TitleHeader";
 import LogoAnimation from "../components/LogoAnimation";
@@ -34,49 +35,67 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setStatus({ message: "", type: "" }); // Clear previous status
+ // Replace your handleSubmit function with this enhanced debug version
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setStatus({ message: "", type: "" });
 
-    try {
-      const response = await axios.post(
-        getApiUrl('contact'), // Uses the API config
-        form,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+  const apiUrl = getApiUrl('contact');
+  console.log("=== DEBUG INFO ===");
+  console.log("Environment:", import.meta.env.MODE);
+  console.log("Form data:", form);
+  console.log("Full API URL:", apiUrl);
 
-      if (response.data.success) {
-        setStatus({
-          message: "Messaggio inviato con successo! Ti risponderemo presto.",
-          type: "success"
-        });
-        // Reset form
-        setForm({ name: "", email: "", contactType: "", message: "" });
-      }
-    } catch (error) {
-      let errorMessage = "Si è verificato un errore. Riprova più tardi.";
-      
-      if (error.response?.data?.message) {
-        errorMessage = error.response.data.message;
-      } else if (error.response?.data?.errors) {
-        // Handle validation errors
-        const errors = error.response.data.errors;
-        errorMessage = Object.values(errors).flat().join(', ');
-      }
+  try {
+    const response = await axios.post(apiUrl, form, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      timeout: 10000,
+    });
 
+    console.log("✅ Success Response:", response.data);
+    console.log("Response Status:", response.status);
+
+    if (response.data.success) {
       setStatus({
-        message: errorMessage,
-        type: "error"
+        message: "Messaggio inviato con successo! Ti risponderemo presto.",
+        type: "success"
       });
-    } finally {
-      setLoading(false);
+      setForm({ name: "", email: "", contactType: "", message: "" });
     }
-  };
+  } catch (error) {
+    console.log("=== ERROR DEBUG INFO ===");
+    console.log("Error:", error);
+    
+    if (error.response) {
+      console.log("❌ Response Error:");
+      console.log("Status:", error.response.status);
+      console.log("Status Text:", error.response.statusText);
+      console.log("Response Data:", error.response.data);
+    } else if (error.request) {
+      console.log("❌ Network Error - no response received");
+    } else {
+      console.log("❌ Other Error:", error.message);
+    }
+
+    let errorMessage = "Si è verificato un errore. Riprova più tardi.";
+    
+    if (error.response?.status === 403) {
+      errorMessage = `403 Forbidden: Check server configuration`;
+    }
+
+    setStatus({
+      message: errorMessage,
+      type: "error"
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <section id="contatti" className="flex-center section-padding">

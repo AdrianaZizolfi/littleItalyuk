@@ -16,8 +16,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite dev server
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
-    # Add your production domain here
+    "http://littleitalyukldn.co.uk",
 ]
+
+# Or if you want to disable CSRF for API endpoints entirely:
+CSRF_COOKIE_SECURE = False  # Only for development
+CSRF_COOKIE_HTTPONLY = False
 
 # Add these additional CORS settings to handle preflight requests
 CORS_ALLOW_CREDENTIALS = True

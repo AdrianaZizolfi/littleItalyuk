@@ -128,21 +128,21 @@ const navLinks = [
       imgPath: "/images/nicoletta.jpg",
       description:"Vivo a Londra da anni e lavoro come Senior Software Engineer. Amo viaggiare, leggere, ascoltare rock classico, imparare lingue e creare con l’uncinetto, ma la mia vera passione e' la cucina, legata alle mie radici italiane. Collaboro con LittleItalyUK, gestendo i gruppi Italian Food Lovers e Servizi Amministrativi per supportare la comunita' italiana a Londra.",
     },
-    {
-      name: "Nome 3",
-      imgPath: "/images/Rectangle4.png",
-      description:"",
-    },
-    {
-      name: "Nome 4",
-      imgPath: "/images/Rectangle5.png",
-      description:"",
-    },
-    {
-      name: "Nome 5",
-      imgPath: "/images/Rectangle4.png",
-      description:"",
-    },
+    // {
+    //   name: "Nome 3",
+    //   imgPath: "/images/Rectangle4.png",
+    //   description:"",
+    // },
+    // {
+    //   name: "Nome 4",
+    //   imgPath: "/images/Rectangle5.png",
+    //   description:"",
+    // },
+    // {
+    //   name: "Nome 5",
+    //   imgPath: "/images/Rectangle4.png",
+    //   description:"",
+    // },
     
   ];
   

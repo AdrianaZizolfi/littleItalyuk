@@ -133,15 +133,82 @@ class ContactSubmissionViewSet(viewsets.ModelViewSet):
 #         return Response({"success": True}, status=status.HTTP_201_CREATED)
 #     return Response({"success": False, "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
+import requests
+import json
+import base64
+from django.conf import settings
+
+def send_email_office365_api(subject, message, recipient_email):
+    """
+    Send email using Office 365 REST API instead of SMTP
+    """
+    try:
+        # Office 365 REST API endpoint
+        url = "https://outlook.office365.com/api/v2.0/me/sendmail"
+        
+        # Create basic auth header
+        credentials = f"{settings.EMAIL_HOST_USER}:{settings.EMAIL_HOST_PASSWORD}"
+        encoded_credentials = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
+        
+        headers = {
+            'Authorization': f'Basic {encoded_credentials}',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        
+        # Email data structure
+        email_data = {
+            "Message": {
+                "Subject": subject,
+                "Body": {
+                    "ContentType": "Text",
+                    "Content": message
+                },
+                "ToRecipients": [
+                    {
+                        "EmailAddress": {
+                            "Address": recipient_email
+                        }
+                    }
+                ],
+                "From": {
+                    "EmailAddress": {
+                        "Address": settings.EMAIL_HOST_USER
+                    }
+                }
+            },
+            "SaveToSentItems": "true"
+        }
+        
+        # Make the API request
+        response = requests.post(url, headers=headers, json=email_data, timeout=30)
+        
+        print(f"Office 365 API Response Status: {response.status_code}")
+        print(f"Office 365 API Response: {response.text}")
+        
+        # Check if successful (202 = Accepted)
+        if response.status_code == 202:
+            return True
+        else:
+            print(f"Office 365 API Error: {response.status_code} - {response.text}")
+            return False
+            
+    except Exception as e:
+        print(f"Office 365 API Exception: {str(e)}")
+        return False
+
+# Update your main view
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def submit_contact_form(request):
+    print("🚀 Contact form view called")
+    
     serializer = ContactSubmissionSerializer(data=request.data)
     if serializer.is_valid():
         submission = serializer.save()
 
-        # Compose and send email
+        # Compose email
         subject = f"📬 New Contact Submission: {submission.topic}"
         message = (
             f"Name: {submission.name}\n"
@@ -149,14 +216,33 @@ def submit_contact_form(request):
             f"Type: {submission.topic}\n\n"
             f"Message:\n{submission.message}"
         )
-        recipient = ['adrianazizolfi0@gmail.com']  # Replace with your real address
+        
+        # Try Office 365 API first, fallback to SMTP
+        recipient = 'adrianazizolfi0@gmail.com'
+        
+        email_sent = send_email_office365_api(subject, message, recipient)
+        
+        if not email_sent:
+            print("Office 365 API failed, trying SMTP fallback...")
+            try:
+                from django.core.mail import send_mail
+                send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient])
+                email_sent = True
+                print("SMTP fallback successful")
+            except Exception as e:
+                print(f"SMTP fallback also failed: {str(e)}")
+        
+        if email_sent:
+            print("✅ Email sent successfully")
+        else:
+            print("❌ Email sending failed")
 
-        try:
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient)
-        except Exception as e:
-            print("Email sending failed:", str(e))  # Or log it properly
-
-        return Response({'success': True, 'message': 'Submission saved and email sent.'}, status=status.HTTP_201_CREATED)
+        return Response({
+            'success': True, 
+            'message': 'Submission saved and email sent.' if email_sent else 'Submission saved but email failed.'
+        }, status=status.HTTP_201_CREATED)
+    
+    print("❌ Form validation errors:", serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SiteSettingsViewSet(viewsets.ModelViewSet):

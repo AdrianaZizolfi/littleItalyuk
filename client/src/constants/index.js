@@ -103,16 +103,19 @@ const navLinks = [
       name: "Davide",
       imgPath: "/images/davide.jpg",
       description: "Fondatore di Little Italy UK, cura i rapporti con la comunita' e le partnership strategiche, mantenendo solide relazioni con sponsor e collaboratori. Figura di spicco della scena italiana a Londra, segue personalmente tutte le attivita' dell’organizzazione per unire e celebrare la comunita' italiana.",
+      role: "Fondatore",
     },
     {
       name: "Vincenzo",
       imgPath: "/images/vincenzo.jpg",
-      description:"Co-Founder & Direttore Operativo – Little Italy UK, Co-fondatore e direttore operativo di Little Italy UK Coordina eventi, progetti e collaborazioni per promuovere la cultura e il Made in Italy nel Regno Unito",
+      description:"Co-fondatore e direttore operativo di Little Italy UK Coordina eventi, progetti e collaborazioni per promuovere la cultura e il Made in Italy nel Regno Unito",
+      role: "Co-Founder & Direttore Operativo",
     },
     {
       name: "Tommy",
       imgPath: "/images/tommy.jpg",
-      description: "Social Media Manager di Little Italy UK, creo e gestisco contenuti che raccontano la cultura italiana a Londra, valorizzando eventi, partner e sponsor. Mi occupo di strategie creative per aumentare visibilità, coinvolgere la community e mantenere viva l’identità del progetto online.",
+      description: "Creo e gestisco contenuti che raccontano la cultura italiana a Londra, valorizzando eventi, partner e sponsor. Mi occupo di strategie creative per aumentare visibilità, coinvolgere la community e mantenere viva l’identità del progetto online.",
+      role: "Social Media Manager",
     },
    
   ];

@@ -125,7 +125,7 @@ const Contact = () => {
                   <select
                     id="contactType"
                     name="contactType"
-                    value={form.contactTopic}
+                    value={form.contactType} // Changed from contactTopic to contactType
                     onChange={handleChange}
                     required
                     disabled={loading}

@@ -48,27 +48,32 @@ useGSAP(() => {
       <div className="w-full h-full p-10 md:px-10 px-5 flex flex-col items-center">
           <TitleHeader title="Fondatori" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 justify-items-center mt-8">
+          <div className="flex flex-wrap justify-center gap-12 mt-8">
             {teamImgs.map((icon) => (
               <div
                 key={icon.name}
-                className="card-border team-card overflow-hidden group xl:rounded-full rounded-lg"
+                className="card-border team-card overflow-hidden group xl:rounded-full rounded-lg w-56"
               >
                 <div className="team-card-animated-bg" />
-                <div className="team-card-content">
+                <div className="team-card-content flex flex-col items-center">
                   <div className="tech-icon-wrapper">
                     <img src={icon.imgPath} alt={icon.name} className="xl:rounded-full" />
                     <div className="team-description absolute inset-0 flex items-center justify-center p-4 text-center bg-white/80 opacity-0">
-                    <p className="text-gray-800 text-sm">{icon.description}</p>
-                  </div>
+                      <p className="text-gray-800 text-sm">{icon.description}</p>
+                    </div>
                   </div>
                   <div className="padding-x w-full text-center">
-                    <p>{icon.name}</p>
+                    <p className="font-semibold">{icon.name}</p>
+                    <p className="text-xs text-gray-500 break-words whitespace-normal max-w-[60%] mx-auto">
+                      {icon.role}
+                    </p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+
+
         </div>
 
 
@@ -96,10 +101,10 @@ useGSAP(() => {
       </div> */}
       <div className="w-full h-full p-10 md:px-10 px-5">
           <TitleHeader title="Collaboratori" />
-          
+
           <div className="
-            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center
-            lg:flex lg:flex-wrap lg:justify-center
+            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6
+            lg:flex lg:flex-wrap lg:justify-center lg:gap-10
           ">
             {collabImgs.map((icon) => (
               <div
@@ -114,8 +119,9 @@ useGSAP(() => {
                       <p className="text-gray-800 text-sm">{icon.description}</p>
                     </div>
                   </div>
-                  <div className="padding-x w-full">
-                    <p>{icon.name}</p>
+                  <div className="padding-x w-full text-center">
+                    <p className="font-semibold">{icon.name}</p>
+                    
                   </div>
                 </div>
               </div>

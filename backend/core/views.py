@@ -133,6 +133,7 @@ class ContactSubmissionViewSet(viewsets.ModelViewSet):
 #         return Response({"success": True}, status=status.HTTP_201_CREATED)
 #     return Response({"success": False, "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def submit_contact_form(request):

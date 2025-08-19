@@ -73,7 +73,7 @@ useGSAP(() => {
 
 
       {/* Collaboratori Section */}
-      <div className="w-full h-full p-10 md:px-10 px-5">
+      {/* <div className="w-full h-full p-10 md:px-10 px-5">
         <TitleHeader title="Collaboratori" />
         <div className="tech-grid">
           {collabImgs.map((icon) => (
@@ -93,7 +93,36 @@ useGSAP(() => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
+      <div className="w-full h-full p-10 md:px-10 px-5">
+          <TitleHeader title="Collaboratori" />
+          
+          <div className="
+            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center
+            lg:flex lg:flex-wrap lg:justify-center
+          ">
+            {collabImgs.map((icon) => (
+              <div
+                key={`${icon.name}-collab`}
+                className="card-border team-card overflow-hidden group xl:rounded-full rounded-lg"
+              >
+                <div className="team-card-animated-bg" />
+                <div className="team-card-content">
+                  <div className="tech-icon-wrapper">
+                    <img src={icon.imgPath} className="xl:rounded-full" />
+                    <div className="team-description absolute inset-0 flex items-center justify-center p-4 text-center bg-white/80 opacity-0">
+                      <p className="text-gray-800 text-sm">{icon.description}</p>
+                    </div>
+                  </div>
+                  <div className="padding-x w-full">
+                    <p>{icon.name}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
     </div>
   )
 }

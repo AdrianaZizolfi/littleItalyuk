@@ -39,7 +39,7 @@ const API_CONFIG = {
     
     // Production - update these with your actual domain
     production: {
-      baseURL: 'http://littleitalyukldn.co.uk', // Replace with your actual domain
+      baseURL: 'https://littleitalyukldn.co.uk', // Replace with your actual domain
       endpoints: {
         contact: '/api/contact/',
       }

@@ -220,7 +220,7 @@ def submit_contact_form(request):
             f"Messaggio:\n{submission.message}"
         )
         
-        recipient = 'adrianazizolfi0@gmail.com'
+        recipient = 'info@littleitalyukldn.co.uk'
         
         # Debug info
         print(f"📧 EMAIL DEBUG INFO:")

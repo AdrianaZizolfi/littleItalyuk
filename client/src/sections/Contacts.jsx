@@ -25,10 +25,10 @@ const Contact = () => {
 
   const contactOptions = [
     { value: "", label: "Seleziona un'opzione..." },
-    { value: "collabora", label: "Collabora con noi" },
-    { value: "sponsor", label: "Diventa Sponsor" },
-    { value: "vendor", label: "Diventa Vendor" },
-    { value: "generale", label: "Generale" }
+    { value: "Collabora con noi", label: "Collabora con noi" },
+    { value: "Sponsor", label: "Diventa Sponsor" },
+    { value: "Vendor", label: "Diventa Vendor" },
+    { value: "Richiesta Generale", label: "Generale" }
   ];
 
   const handleChange = (e) => {

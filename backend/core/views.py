@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 from django.utils import timezone
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+import requests
+from io import BytesIO
 from datetime import timedelta
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -411,10 +414,9 @@ def public_sangennaro_page(request):
 @permission_classes([AllowAny])
 def create_ticket(request):
     """
-    Create a new ticket
+    Create a new ticket and send it via email with QR code attachment
     """
     try:
-        # Add this debugging line
         print(f"Received data: {request.data}")
         print(f"Content-Type: {request.content_type}")
         
@@ -424,15 +426,46 @@ def create_ticket(request):
             ticket = serializer.save()
             logger.info(f"New ticket created: {ticket.ticket_id} for {ticket.email}")
             response_serializer = TicketSerializer(ticket)
+
+            # --- Send email with QR code attachment ---
+            subject = f"Il tuo biglietto per {ticket.event_name}"
             
+            # Creative Italian message
+            message = f"""
+Ciao {ticket.full_name},
+
+Grazie per aver prenotato il tuo biglietto per il San Gennaro Fest 2025! 
+L'evento si terrà a Kings Cross l'11 e 12 Ottobre e non vediamo l'ora di vederti lì.
+
+Troverai il tuo biglietto allegato con il QR code. Mostralo all'ingresso per accedere.
+
+A presto!
+Il team del San Gennaro Fest
+"""
+
+            email = EmailMessage(
+                subject=subject,
+                body=message,
+                to=[ticket.email]
+            )
+
+            # Fetch the QR code image from URL and attach it
+            if ticket.qr_code_url:
+                response = requests.get(ticket.qr_code_url)
+                if response.status_code == 200:
+                    qr_image = BytesIO(response.content)
+                    email.attach(f"ticket_{ticket.ticket_id}.png", qr_image.read(), 'image/png')
+            
+            email.send(fail_silently=False)
+            # --- End send email ---
+
             return Response({
                 'success': True,
-                'message': 'Biglietto creato con successo',
+                'message': 'Biglietto creato con successo e inviato via email',
                 'ticket': response_serializer.data
             }, status=status.HTTP_201_CREATED)
         
         else:
-            # Add this debugging line
             print(f"Validation errors: {serializer.errors}")
             return Response({
                 'success': False,

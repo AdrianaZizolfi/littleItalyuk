@@ -96,7 +96,7 @@ class PageSerializer(serializers.ModelSerializer):
 class ContactSubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactSubmission
-        fields = ['id', 'name', 'email', 'subject', 'message', 
+        fields = ['id', 'name', 'email', 'subject', 'topic', 'message', 
                  'submitted_at', 'is_read']
 
 class SiteSettingsSerializer(serializers.ModelSerializer):

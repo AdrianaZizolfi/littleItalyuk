@@ -46,6 +46,7 @@ const handleSubmit = async (e) => {
   console.log("=== DEBUG INFO ===");
   console.log("Environment:", import.meta.env.MODE);
   console.log("Form data:", form);
+  console.log("Submitting topic:", form.topic);
   console.log("Full API URL:", apiUrl);
 
   try {
@@ -141,7 +142,7 @@ const handleSubmit = async (e) => {
                 </div>
 
                 <div>
-                  <label htmlFor="contactTopic">Tipo di Contatto</label>
+                  <label htmlFor="topic">Tipo di Contatto</label>
                   <select
                     id="topic"
                     name="topic"

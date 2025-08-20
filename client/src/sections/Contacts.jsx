@@ -10,11 +10,12 @@ const Contact = () => {
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    contactType: "",
-    message: "",
-  });
+  name: "",
+  email: "",
+  topic: "",   
+  message: "",
+});
+
 
   // Add status state for success/error messages
   const [status, setStatus] = useState({
@@ -64,7 +65,7 @@ const handleSubmit = async (e) => {
         message: "Messaggio inviato con successo! Ti risponderemo presto.",
         type: "success"
       });
-      setForm({ name: "", email: "", contactType: "", message: "" });
+      setForm({ name: "", email: "", topic: "", message: "" });
     }
   } catch (error) {
     console.log("=== ERROR DEBUG INFO ===");
@@ -142,9 +143,9 @@ const handleSubmit = async (e) => {
                 <div>
                   <label htmlFor="contactTopic">Tipo di Contatto</label>
                   <select
-                    id="contactType"
-                    name="contactType"
-                    value={form.contactType} // Changed from contactTopic to contactType
+                    id="topic"
+                    name="topic"
+                    value={form.topic} // Changed from contactTopic to contactType
                     onChange={handleChange}
                     required
                     disabled={loading}

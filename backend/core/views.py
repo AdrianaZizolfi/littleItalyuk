@@ -197,7 +197,7 @@ def send_email_office365_api(subject, message, recipient_email):
         print(f"Office 365 API Exception: {str(e)}")
         return False
 
-# Update your main view
+# Enhanced main view with better debugging
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -209,16 +209,22 @@ def submit_contact_form(request):
         submission = serializer.save()
 
         # Compose email
-        subject = f"📬 New Contact Submission: {submission.topic}"
+        subject = f"📬 Nuova Richiesta di Contatto: {submission.topic}"
         message = (
-            f"Name: {submission.name}\n"
+            f"Nome: {submission.name}\n"
             f"Email: {submission.email}\n"
-            f"Type: {submission.topic}\n\n"
-            f"Message:\n{submission.message}"
+            f"Soggetto: {submission.topic}\n\n"
+            f"Messaggio:\n{submission.message}"
         )
         
-        # Try Office 365 API first, fallback to SMTP
-        recipient = 'adrianazizolfi0@gmail.com'
+        recipient = 'info@littleitalyukldn.co.uk'
+        
+        # Debug info
+        print(f"📧 EMAIL DEBUG INFO:")
+        print(f"   From: {settings.EMAIL_HOST_USER}")
+        print(f"   To: {recipient}")
+        print(f"   Subject: {subject}")
+        print(f"   Message preview: {message[:100]}...")
         
         email_sent = send_email_office365_api(subject, message, recipient)
         
@@ -226,16 +232,32 @@ def submit_contact_form(request):
             print("Office 365 API failed, trying SMTP fallback...")
             try:
                 from django.core.mail import send_mail
-                send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient])
+                
+                # More explicit SMTP call with debugging
+                print(f"🔄 Attempting SMTP with:")
+                print(f"   Host: {settings.EMAIL_HOST}")
+                print(f"   Port: {settings.EMAIL_PORT}")
+                print(f"   User: {settings.EMAIL_HOST_USER}")
+                print(f"   TLS: {settings.EMAIL_USE_TLS}")
+                
+                send_mail(
+                    subject=subject,
+                    message=message,
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[recipient],
+                    fail_silently=False  # This will show any errors
+                )
                 email_sent = True
-                print("SMTP fallback successful")
+                print("✅ SMTP fallback successful")
+                
             except Exception as e:
-                print(f"SMTP fallback also failed: {str(e)}")
+                print(f"❌ SMTP fallback failed: {str(e)}")
+                print(f"   Exception type: {type(e).__name__}")
         
         if email_sent:
-            print("✅ Email sent successfully")
+            print("🎉 Email sent successfully")
         else:
-            print("❌ Email sending failed")
+            print("💥 Email sending failed completely")
 
         return Response({
             'success': True, 

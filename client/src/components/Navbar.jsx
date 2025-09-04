@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 import { navLinks } from '../constants';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Navbar = () => {
+    const { t } = useTranslation();
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();
@@ -71,36 +74,40 @@ const Navbar = () => {
                 <nav className='desktop'>
                    <ul>
                     {navLinks.map(({ link, name, children }) => (
-  <li key={name} className='group relative'>
-    {link.startsWith('/') ? (
-      <Link to={link}>
-        <span>{name}</span>
-        <span className='underline'></span>
-      </Link>
-    ) : (
-      <a href={link} onClick={(e) => handleSectionClick(e, link)}>
-        <span>{name}</span>
-        <span className='underline'></span>
-      </a>
-    )}
+                      <li key={name} className='group relative'>
+                        {link.startsWith('/') ? (
+                          <Link to={link}>
+                            <span>{t(name)}</span>
+                            <span className='underline'></span>
+                          </Link>
+                        ) : (
+                          <a href={link} onClick={(e) => handleSectionClick(e, link)}>
+                            <span>{t(name)}</span>
+                            <span className='underline'></span>
+                          </a>
+                        )}
 
-    {/* Submenu */}
-    {children && (
-      <ul className='submenu absolute top-full left-0 bg-white shadow-lg rounded p-2 hidden group-hover:block z-50'>
-        {children.map(({ name: childName, link: childLink }) => (
-          <li key={childName}>
-            <Link to={childLink} className='block px-4 py-2 hover:bg-gray-100'>
-              {childName}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    )}
-  </li>
-))}
-
+                        {/* Submenu */}
+                        {children && (
+                          <ul className='submenu absolute top-full left-0 bg-white shadow-lg rounded p-2 hidden group-hover:block z-50'>
+                            {children.map(({ name: childName, link: childLink }) => (
+                              <li key={childName}>
+                                <Link to={childLink} className='block px-4 py-2 hover:bg-gray-100'>
+                                  {t(childName)}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
                     </ul> 
                 </nav>
+
+                {/* Language Switcher - Desktop */}
+                <div className="hidden md:flex items-center mr-4">
+                    <LanguageSwitcher />
+                </div>
 
                 {/* Desktop Contact Button */}
                 <a 
@@ -109,7 +116,7 @@ const Navbar = () => {
                     onClick={handleContactClick}
                 >
                     <div className='inner'>
-                        <span>Contatti</span>
+                        <span>{t("Contatti")}</span>
                     </div>
                 </a>
 
@@ -143,7 +150,7 @@ const Navbar = () => {
                                         onClick={() => setMobileMenuOpen(false)}
                                         className='mobile-nav-link'
                                     >
-                                        {name}
+                                        {t(name)}
                                     </Link>
                                 ) : (
                                     <a 
@@ -151,7 +158,7 @@ const Navbar = () => {
                                         onClick={(e) => handleSectionClick(e, link)}
                                         className='mobile-nav-link'
                                     >
-                                        {name}
+                                        {t(name)}
                                     </a>
                                 )}
                             </li>
@@ -162,8 +169,12 @@ const Navbar = () => {
                                 className='mobile-contact-btn'
                                 onClick={handleContactClick}
                             >
-                                Contatti
+                                {t("Contatti")}
                             </a>
+                        </li>
+                        {/* Language Switcher - Mobile */}
+                        <li className="mt-4 flex justify-center">
+                            <LanguageSwitcher />
                         </li>
                     </ul>
                 </nav>

@@ -1,9 +1,10 @@
-import { socialImgs } from "../constants";
-import { navLinks } from '../constants';
+import { socialImgs, navLinks } from "../constants";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCallback } from "react";
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,12 +40,12 @@ const Footer = () => {
               <li key={name} className="group">
                 {link.startsWith('/') ? (
                   <a href={link}>
-                    <span>{name}</span>
+                    <span>{t(name)}</span>
                     <span className="underline"></span>
                   </a>
                 ) : (
                   <a href={link} onClick={(e) => handleSectionClick(e, link)}>
-                    <span>{name}</span>
+                    <span>{t(name)}</span>
                     <span className="underline"></span>
                   </a>
                 )}
@@ -68,19 +69,19 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col justify-center">
-  <p className="text-center md:text-end">
-    © {new Date().getFullYear()} Little Italy UK Ldn. All rights reserved.<br />
-    Developed by{' '}
-    <a 
-      href="https://www.aethercreativeagency.co.uk" 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      className="text-blue-600 hover:underline"
-    >
-      Aether Creative London
-    </a>
-  </p>
-</div>
+          <p className="text-center md:text-end">
+            © {new Date().getFullYear()} Little Italy UK Ldn. All rights reserved.<br />
+            Developed by{' '}
+            <a 
+              href="https://www.aethercreativeagency.co.uk" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-blue-600 hover:underline"
+            >
+              Aether Creative London
+            </a>
+          </p>
+        </div>
 
       </div>
     </footer>

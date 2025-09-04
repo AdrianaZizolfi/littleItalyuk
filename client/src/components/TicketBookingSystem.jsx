@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Mail, User, Phone, Download, CheckCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const TicketBookingSystem = ({ onClose }) => {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -17,13 +20,13 @@ const TicketBookingSystem = ({ onClose }) => {
     const newErrors = {};
     
     if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Il nome completo è obbligatorio';
+      newErrors.fullName = t('fullName_required');
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = 'L\'email è obbligatoria';
+      newErrors.email = t('email_required');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Inserisci un indirizzo email valido';
+      newErrors.email = t('email_invalid');
     }
     
     setErrors(newErrors);
@@ -35,7 +38,6 @@ const TicketBookingSystem = ({ onClose }) => {
   };
 
   const generateQRCode = (ticketData) => {
-    // Using QR Server API to generate QR code
     const qrData = JSON.stringify({
       ticketId: ticketData.ticketId,
       name: ticketData.fullName,
@@ -44,17 +46,16 @@ const TicketBookingSystem = ({ onClose }) => {
       status: 'valid'
     });
     
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
-    return qrUrl;
+    return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
   };
 
   const saveTicketData = async (ticketData, qrCodeUrl) => {
     try {
-      const response = await fetch('/api/tickets/', {  // Adjust URL to match your Django endpoint
+      const response = await fetch('/api/tickets/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': getCsrfToken(), // If you're using CSRF protection
+          'X-CSRFToken': getCsrfToken(),
         },
         body: JSON.stringify({
           full_name: ticketData.fullName,
@@ -67,80 +68,53 @@ const TicketBookingSystem = ({ onClose }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Impossibile salvare i dati del biglietto');
+        throw new Error(t('ticket_save_error'));
       }
 
       const result = await response.json();
       return { success: true, data: result };
     } catch (error) {
-      console.error('Errore nel salvare i dati del biglietto:', error);
+      console.error(t('ticket_save_error'), error);
       return { success: false, error: error.message };
     }
   };
 
-  // Helper function to get CSRF token (if needed)
   const getCsrfToken = () => {
     const cookies = document.cookie.split(';');
     for (let cookie of cookies) {
       const [name, value] = cookie.trim().split('=');
-      if (name === 'csrftoken') {
-        return value;
-      }
+      if (name === 'csrftoken') return value;
     }
     return '';
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error when user starts typing
+    setFormData(prev => ({ ...prev, [name]: value }));
+
     if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
-    
     try {
-      // Generate ticket ID
       const newTicketId = generateTicketId();
-      
-      // Create ticket data
-      const ticketData = {
-        ...formData,
-        ticketId: newTicketId,
-        createdAt: new Date().toISOString()
-      };
-      
-      // Generate QR code
+      const ticketData = { ...formData, ticketId: newTicketId, createdAt: new Date().toISOString() };
       const qrUrl = generateQRCode(ticketData);
-      
-      // Save ticket data to Django backend
       const saveResult = await saveTicketData(ticketData, qrUrl);
-      
+
       if (saveResult.success) {
         setTicketId(newTicketId);
         setQrCodeUrl(qrUrl);
         setTicketGenerated(true);
       }
-      
     } catch (error) {
-      console.error('Errore nella generazione del biglietto:', error);
-      alert('Si è verificato un errore nella generazione del biglietto. Riprova.');
+      alert(t('ticket_generation_error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -156,11 +130,7 @@ const TicketBookingSystem = ({ onClose }) => {
   };
 
   const resetForm = () => {
-    setFormData({
-      fullName: '',
-      email: '',
-      phoneNumber: ''
-    });
+    setFormData({ fullName: '', email: '', phoneNumber: '' });
     setTicketGenerated(false);
     setQrCodeUrl('');
     setTicketId('');
@@ -171,46 +141,28 @@ const TicketBookingSystem = ({ onClose }) => {
     return (
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Biglietto Generato!</h2>
-        <p className="text-gray-600 mb-6">
-          Il tuo biglietto gratuito e' stato generato e inviato al tuo indirizzo email.
-        </p>
-        
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('ticket_generated')}</h2>
+        <p className="text-gray-600 mb-6">{t('ticket_generated_message')}</p>
+
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <p className="text-sm text-gray-600 mb-2">ID Biglietto</p>
+          <p className="text-sm text-gray-600 mb-2">{t('ticket_id')}</p>
           <p className="font-mono text-sm font-semibold text-gray-800">{ticketId}</p>
         </div>
-        
+
         <div className="mb-6">
-          <img 
-            src={qrCodeUrl} 
-            alt="QR Code Biglietto" 
-            className="mx-auto border-2 border-gray-200 rounded-lg"
-          />
+          <img src={qrCodeUrl} alt={t('ticket_qr_code')} className="mx-auto border-2 border-gray-200 rounded-lg" />
         </div>
-        
+
         <div className="space-y-3">
-          <button
-            onClick={downloadQRCode}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-          >
-            <Download className="w-4 h-4" />
-            Scarica QR Code
+          <button onClick={downloadQRCode} className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+            <Download className="w-4 h-4" /> {t('download_qr')}
           </button>
-          
-          <button
-            onClick={resetForm}
-            className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
-          >
-            Genera Altro Biglietto
+          <button onClick={resetForm} className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+            {t('generate_another_ticket')}
           </button>
-          
           {onClose && (
-            <button
-              onClick={onClose}
-              className="w-full bg-gray-500 text-white py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors"
-            >
-              Chiudi
+            <button onClick={onClose} className="w-full bg-gray-500 text-white py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors">
+              {t('close')}
             </button>
           )}
         </div>
@@ -221,15 +173,14 @@ const TicketBookingSystem = ({ onClose }) => {
   return (
     <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Biglietto Evento Gratuito</h1>
-        <p className="text-gray-600">Ottieni il tuo biglietto gratuito con QR code</p>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">{t('free_event_ticket')}</h1>
+        <p className="text-gray-600">{t('free_ticket_qr_message')}</p>
       </div>
-      
+
       <div className="space-y-6">
         <div>
           <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
-            <User className="w-4 h-4 inline mr-1" />
-            Nome Completo *
+            <User className="w-4 h-4 inline mr-1" /> {t('full_name')} *
           </label>
           <input
             type="text"
@@ -237,20 +188,15 @@ const TicketBookingSystem = ({ onClose }) => {
             name="fullName"
             value={formData.fullName}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-              errors.fullName ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder="Inserisci il tuo nome completo"
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder={t('enter_full_name')}
           />
-          {errors.fullName && (
-            <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>
-          )}
+          {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
         </div>
-        
+
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-            <Mail className="w-4 h-4 inline mr-1" />
-            Indirizzo Email *
+            <Mail className="w-4 h-4 inline mr-1" /> {t('email')} *
           </label>
           <input
             type="email"
@@ -258,20 +204,15 @@ const TicketBookingSystem = ({ onClose }) => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder="Inserisci il tuo indirizzo email"
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder={t('enter_email')}
           />
-          {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-          )}
+          {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
         </div>
-        
+
         <div>
           <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
-            <Phone className="w-4 h-4 inline mr-1" />
-            Numero di Telefono (Opzionale)
+            <Phone className="w-4 h-4 inline mr-1" /> {t('phone_number_optional')}
           </label>
           <input
             type="tel"
@@ -280,27 +221,21 @@ const TicketBookingSystem = ({ onClose }) => {
             value={formData.phoneNumber}
             onChange={handleInputChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-            placeholder="Inserisci il tuo numero di telefono"
+            placeholder={t('enter_phone_number')}
           />
         </div>
-        
+
         <button
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className={`w-full py-3 px-4 rounded-lg text-white font-medium transition-colors ${
-            isSubmitting
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-blue-600 hover:bg-blue-700'
-          }`}
+          className={`w-full py-3 px-4 rounded-lg text-white font-medium transition-colors ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
         >
-          {isSubmitting ? 'Generazione Biglietto...' : 'Ottieni Biglietto Gratuito'}
+          {isSubmitting ? t('ticket_generating') : t('get_free_ticket')}
         </button>
       </div>
-      
+
       <div className="mt-6 text-center">
-        <p className="text-xs text-gray-500">
-          * Campi obbligatori. Il biglietto verra' inviato al tuo indirizzo email.
-        </p>
+        <p className="text-xs text-gray-500">{t('required_fields_note')}</p>
       </div>
     </div>
   );

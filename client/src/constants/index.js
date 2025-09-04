@@ -99,38 +99,16 @@ const navLinks = [
   ];
   
   const teamImgs = [
-    {
-      name: "Davide",
-      imgPath: "/images/davide.jpg",
-      description: "Fondatore di Little Italy UK, cura i rapporti con la comunita' e le partnership strategiche, mantenendo solide relazioni con sponsor e collaboratori. Figura di spicco della scena italiana a Londra, segue personalmente tutte le attivita' dell’organizzazione per unire e celebrare la comunita' italiana.",
-      role: "Fondatore",
-    },
-    {
-      name: "Vincenzo",
-      imgPath: "/images/vincenzo.jpg",
-      description:"Co-fondatore e direttore operativo di Little Italy UK Coordina eventi, progetti e collaborazioni per promuovere la cultura e il Made in Italy nel Regno Unito",
-      role: "Co-Founder & Direttore Operativo",
-    },
-    {
-      name: "Tommy",
-      imgPath: "/images/tommy.jpg",
-      description: "Creo e gestisco contenuti che raccontano la cultura italiana a Londra, valorizzando eventi, partner e sponsor. Mi occupo di strategie creative per aumentare visibilità, coinvolgere la community e mantenere viva l’identità del progetto online.",
-      role: "Social Media Manager",
-    },
-   
+  { name: "Davide", imgPath: "/images/davide.jpg", descriptionKey: "davide_description", roleKey: "davide_role" },
+  { name: "Vincenzo", imgPath: "/images/vincenzo.jpg", descriptionKey: "vincenzo_description", roleKey: "vincenzo_role" },
+  { name: "Tommy", imgPath: "/images/tommy.jpg", descriptionKey: "tommy_description", roleKey: "tommy_role" },
   ];
 
   const collabImgs = [
-    {
-      name: "Angelica",
-      imgPath: "/images/angelica.jpg",
-      description:"Angelica svolge un ruolo fondamentale, supportando Little Italy UK nella sua missione di unire la comunita' italiana a Londra e nel Regno Unito. Gestisce le attivita' amministrative, le comunicazioni e la logistica degli eventi, oltre a curare un gruppo WhatsApp per promuovere iniziative di networking e scambio culturale.",
-    },
-    {
-      name: "Nicoletta",
-      imgPath: "/images/nicoletta.jpg",
-      description:"Vivo a Londra da anni e lavoro come Senior Software Engineer. Amo viaggiare, leggere, ascoltare rock classico, imparare lingue e creare con l’uncinetto, ma la mia vera passione e' la cucina, legata alle mie radici italiane. Collaboro con LittleItalyUK, gestendo i gruppi Italian Food Lovers e Servizi Amministrativi per supportare la comunita' italiana a Londra.",
-    },
+  { name: "Angelica", imgPath: "/images/angelica.jpg", descriptionKey: "angelica_description" },
+  { name: "Nicoletta", imgPath: "/images/nicoletta.jpg", descriptionKey: "nicoletta_description" },
+  { name: "Angela", imgPath: "/images/angela.jpg", descriptionKey: "angela_description" },
+
     // {
     //   name: "Nome 3",
     //   imgPath: "/images/Rectangle4.png",

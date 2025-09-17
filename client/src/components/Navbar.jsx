@@ -109,16 +109,7 @@ const Navbar = () => {
                     <LanguageSwitcher />
                 </div>
 
-                {/* Desktop Contact Button */}
-                <a 
-                    href='contact' 
-                    className='contact-btn group'
-                    onClick={handleContactClick}
-                >
-                    <div className='inner'>
-                        <span>{t("Contatti")}</span>
-                    </div>
-                </a>
+                
 
                 {/* Mobile Hamburger Button */}
                 <button 
@@ -140,44 +131,64 @@ const Navbar = () => {
                 )}
 
                 {/* Mobile Navigation */}
-                <nav className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`}>
-                    <ul>
-                        {navLinks.map(({link, name}) => (
-                            <li key={name}>
-                                {link.startsWith('/') ? (
-                                    <Link 
-                                        to={link}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className='mobile-nav-link'
-                                    >
-                                        {t(name)}
-                                    </Link>
-                                ) : (
-                                    <a 
-                                        href={link}
-                                        onClick={(e) => handleSectionClick(e, link)}
-                                        className='mobile-nav-link'
-                                    >
-                                        {t(name)}
-                                    </a>
-                                )}
-                            </li>
-                        ))}
-                        <li>
-                            <a 
-                                href='#contatti' 
-                                className='mobile-contact-btn'
-                                onClick={handleContactClick}
-                            >
-                                {t("Contatti")}
-                            </a>
-                        </li>
-                        {/* Language Switcher - Mobile */}
-                        <li className="mt-4 flex justify-center">
-                            <LanguageSwitcher />
-                        </li>
-                    </ul>
-                </nav>
+<nav className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`}>
+  <ul>
+    {navLinks.map(({ link, name, children }) => (
+      <li key={name} className="mobile-nav-item">
+        {link.startsWith('/') ? (
+          <Link
+            to={link}
+            onClick={() => setMobileMenuOpen(false)}
+            className="mobile-nav-link"
+          >
+            {t(name)}
+          </Link>
+        ) : (
+          <a
+            href={link}
+            onClick={(e) => handleSectionClick(e, link)}
+            className="mobile-nav-link"
+          >
+            {t(name)}
+          </a>
+        )}
+
+        {/* Children (if any) */}
+        {children && children.length > 0 && (
+          <ul className="ml-4 mt-2 space-y-2">
+            {children.map(({ link: childLink, name: childName }) => (
+              <li key={childName}>
+                {childLink.startsWith('/') ? (
+                  <Link
+                    to={childLink}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="mobile-subnav-link text-sm text-gray-300"
+                  >
+                    {t(childName)}
+                  </Link>
+                ) : (
+                  <a
+                    href={childLink}
+                    onClick={(e) => handleSectionClick(e, childLink)}
+                    className="mobile-subnav-link text-sm text-gray-300"
+                  >
+                    {t(childName)}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+
+    {/* Language Switcher - Mobile */}
+    <li className="mt-4 flex justify-center">
+      <LanguageSwitcher />
+    </li>
+  </ul>
+</nav>
+
             </div>
         </header>
     )

@@ -35,7 +35,7 @@ export default {
   // Collaborators Descriptions
   "angelica_description": "Angelica plays a fundamental role, supporting Little Italy UK in its mission to unite the Italian community in London and the UK. She manages administrative tasks, communications, and event logistics, as well as moderating a WhatsApp group to promote networking and cultural exchange initiatives.",
 
-  "nicoletta_description": "I have lived in London for years and work as a Senior Software Engineer. I am passionate about cooking, especially dishes linked to my Italian roots. I collaborate with LittleItalyUK, managing the Italian Food Lovers and Administrative Services groups to support the Italian community in London.",
+//   "nicoletta_description": "I have lived in London for years and work as a Senior Software Engineer. I am passionate about cooking, especially dishes linked to my Italian roots. I collaborate with LittleItalyUK, managing the Italian Food Lovers and Administrative Services groups to support the Italian community in London.",
 
  "angela_description": "For years I have volunteered at Saint Peter Italian Church. I collaborate with LittleItalyUK, focusing on connecting with the Italian Church and managing groups related to Italian music, especially Sanremo, sharing information and initiatives.",
   // Events page

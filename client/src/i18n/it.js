@@ -11,7 +11,7 @@ export default {
   "hero_heading_suffix1": "Italiana",
   "hero_heading_suffix2": "a Londra",
   "hero_paragraph": "Non solo eventi. Stiamo creando legami tra italiani che vogliono sentirsi a casa, anche lontano da casa.",
-  "hero_button": "Scopri di più",
+  "hero_button": "Scopri di piu'",
 
   // words
   "Community": "Community",

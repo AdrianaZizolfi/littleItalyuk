@@ -15,10 +15,10 @@ const navLinks = [
       { name: 'Fashion Show', link: '/fashion' }
     ]
     },
-    // {
-    //   name: "Luxury",
-    //   link: "/events",
-    // },
+    {
+      name: "Contatti",
+      link: "#contatti",
+    },
     // {
     //     name: "Merchandising",
     //     link: "/merchandising",
@@ -106,7 +106,7 @@ const navLinks = [
 
   const collabImgs = [
   { name: "Angelica", imgPath: "/images/angelica.jpg", descriptionKey: "angelica_description" },
-  { name: "Nicoletta", imgPath: "/images/nicoletta.jpg", descriptionKey: "nicoletta_description" },
+  // { name: "Nicoletta", imgPath: "/images/nicoletta.jpg", descriptionKey: "nicoletta_description" },
   { name: "Angela", imgPath: "/images/angela.jpg", descriptionKey: "angela_description" },
 
     // {

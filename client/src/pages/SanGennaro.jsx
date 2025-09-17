@@ -57,8 +57,8 @@ const SanGennaro = () => {
               <img src="/images/DSC06846.jpg" alt="Pellone" className="block w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black/40 z-10" />
               <div className="absolute inset-0 flex flex-col justify-end p-4 z-20">
-                <h3 className="text-xl font-semibold text-white mb-1">Pellone</h3>
-                <p className="text-sm text-white">{t("Pizza Napoletana")}</p>
+                <h3 className="text-xl font-semibold text-white mb-1">Coming Soon</h3>
+                {/* <p className="text-sm text-white">{t("Pizza Napoletana")}</p> */}
               </div>
             </div>
           </div>
@@ -69,8 +69,8 @@ const SanGennaro = () => {
               <img src="/images/DSC06817.jpg" alt="Chalet Ciro" className="block w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black/40 z-10" />
               <div className="absolute inset-0 flex flex-col justify-end p-4 z-20">
-                <h3 className="text-xl font-semibold text-white mb-1">Chalet Ciro</h3>
-                <p className="text-sm text-white">{t("Graffa Napoletana")}</p>
+                <h3 className="text-xl font-semibold text-white mb-1">Coming Soon</h3>
+                {/* <p className="text-sm text-white">{t("Graffa Napoletana")}</p> */}
               </div>
             </div>
           </div>
@@ -80,8 +80,8 @@ const SanGennaro = () => {
             <div className="h-48 bg-gray-300 relative">
               <img src="/images/sgennaro.jpg" alt="Aurelio" className="block w-full h-full object-cover" />
               <div className="absolute inset-0 flex flex-col justify-end p-4 z-20">
-                <h3 className="text-xl font-semibold text-white mb-1">Aurelio</h3>
-                <p className="text-sm text-white">{t("Limonata spread legs")}</p>
+                <h3 className="text-xl font-semibold text-white mb-1">Coming Soon</h3>
+                {/* <p className="text-sm text-white">{t("Limonata spread legs")}</p> */}
               </div>
             </div>
           </div>

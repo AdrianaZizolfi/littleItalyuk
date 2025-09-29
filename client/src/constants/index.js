@@ -107,7 +107,7 @@ const navLinks = [
   const collabImgs = [
   { name: "Angelica", imgPath: "/images/angelica.jpg", descriptionKey: "angelica_description" },
   // { name: "Nicoletta", imgPath: "/images/nicoletta.jpg", descriptionKey: "nicoletta_description" },
-  { name: "Angela", imgPath: "/images/angela.jpg", descriptionKey: "angela_description" },
+  // { name: "Angela", imgPath: "/images/angela.jpg", descriptionKey: "angela_description" },
 
     // {
     //   name: "Nome 3",

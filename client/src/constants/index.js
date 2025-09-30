@@ -142,7 +142,7 @@ const navLinks = [
       link: "https://www.instagram.com/azz_tasteofamalfi_london?igsh=cjAzdHh4YjJtY2x6",
     },
   ];
-  
+
   const abilities = [
     {
       imgPath: "/images/seo.png",

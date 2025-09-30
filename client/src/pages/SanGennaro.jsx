@@ -5,6 +5,7 @@ import Contact from '../sections/Contacts';
 import Button from '../components/Button';
 import LogoSection from '../sections/LogoSection';
 import TicketBookingSystem from '../components/TicketBookingSystem';
+import { vendorsName } from '../constants';
 
 const SanGennaro = () => {
   const { t } = useTranslation();
@@ -47,46 +48,34 @@ const SanGennaro = () => {
         <LogoSection />
       </div>
 
-      {/* Artists Section 2024 - Full Width */}
-      <div className="px-6 mb-12">
-        <h1 className="text-4xl font-bold text-center mb-8">{t("Vendors")}</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Card 1 */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <div className="h-48 bg-gray-300 relative">
-              <img src="/images/DSC06846.jpg" alt="Pellone" className="block w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black/40 z-10" />
-              <div className="absolute inset-0 flex flex-col justify-end p-4 z-20">
-                <h3 className="text-xl font-semibold text-white mb-1">Coming Soon</h3>
-                {/* <p className="text-sm text-white">{t("Pizza Napoletana")}</p> */}
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <div className="h-48 bg-gray-300 relative">
-              <img src="/images/DSC06817.jpg" alt="Chalet Ciro" className="block w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black/40 z-10" />
-              <div className="absolute inset-0 flex flex-col justify-end p-4 z-20">
-                <h3 className="text-xl font-semibold text-white mb-1">Coming Soon</h3>
-                {/* <p className="text-sm text-white">{t("Graffa Napoletana")}</p> */}
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <div className="h-48 bg-gray-300 relative">
-              <img src="/images/sgennaro.jpg" alt="Aurelio" className="block w-full h-full object-cover" />
-              <div className="absolute inset-0 flex flex-col justify-end p-4 z-20">
-                <h3 className="text-xl font-semibold text-white mb-1">Coming Soon</h3>
-                {/* <p className="text-sm text-white">{t("Limonata spread legs")}</p> */}
-              </div>
+      
+        {/* Vendors Section 2025 - Full Width */}
+        <div className="px-6 mb-12">
+          <h1 className="text-4xl font-bold text-center mb-8">{t("Vendors")}</h1>
+          <div className="overflow-x-auto pb-4 -mx-6 px-6">
+            <div className="flex gap-6 min-w-max">
+              {vendorsName.map((vendor, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow w-80 flex-shrink-0"
+                >
+                  <div className="h-48 bg-gray-300 relative">
+                    <img 
+                      src={vendor.imgPath} 
+                      alt={vendor.title} 
+                      className="block w-full h-full object-cover" 
+                    />
+                    <div className="absolute inset-0 bg-black/40 z-10" />
+                    <div className="absolute inset-0 flex flex-col justify-end p-4 z-20">
+                      <h3 className="text-xl font-semibold text-white mb-1">{vendor.title}</h3>
+                      <p className="text-sm text-white">{t("Food")}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </div>
 
       <h1 className="text-4xl font-bold text-center mb-8">{t("Edizioni passate")}</h1>
       

@@ -80,6 +80,69 @@ const navLinks = [
     // },
   ];
   
+  const vendorsName = [
+    {
+      imgPath: "/images/vendors/pellone.jpg",
+      title: "Pellone",
+      link:"https://www.instagram.com/pizzeriapellonelondon?igsh=MTQyY2s2NXV2cWRxYg%3D%3D",
+    },
+    {
+      imgPath: "/images/vendors/vincenzo_ltd.jpg",
+      title: "Vincenzo Ltd",
+      link: "https://www.instagram.com/vincenzo.ltd?igsh=MWpyNjFnc3lvNGo0Zg==",
+    },
+    {
+      imgPath: "/images/vendors/scugnizzi.jpg",
+      title: "Scugnizzi",
+      link: "https://www.instagram.com/scugnizziuk?igsh=bjBhZ25uZG11ZnFu",
+    },
+    {
+      imgPath: "/images/vendors/mamma_rosa.jpg",
+      title: "Mamma Rosa",
+      link: "https://www.instagram.com/mammarosa.london?igsh=ajMyb2tib2FvYWE1",
+    },
+    {
+      imgPath: "/images/vendors/081.jpg",
+      title: "081",
+      link: "https://www.instagram.com/081pizzerialdn?igsh=MWoyaTQ3YThlcHVtMQ==",
+    },
+    {
+      imgPath: "/images/vendors/mirash.jpg",
+      title: "Mirash",
+      link: "https://www.instagram.com/mirashpastaandpastry?igsh=MTE4Zmx0dWk1YmxjcA%3D%3D&utm_source=qr",
+    },
+    {
+      imgPath: "/images/vendors/odg.jpg",
+      title: "Officina del Gusto",
+      link: "https://www.instagram.com/officinadelgustofocacceria?igsh=MTh4dGo5OGJ3ZGlzbA%3D%3D",
+    },
+    {
+      imgPath: "/images/vendors/porchetta.jpg",
+      title: "Medite food",
+      link: "https://www.instagram.com/medite_food?igsh=MTc2OWY5ZDB6Y3V5NQ%3D%3D&utm_source=qr",
+    },
+    {
+      imgPath: "/images/vendors/sicilian_pride.jpg",
+      title: "Sicilian Pride",
+      link: "https://www.instagram.com/sicilianprideltd?igsh=MTlrd2o1eGRjNTVjbA==",
+    },
+    {
+      imgPath: "/images/vendors/unlock.jpg",
+      title: "Unlock",
+      link: "https://www.instagram.com/unlock_pizza",
+    },
+    {
+      imgPath: "/images/vendors/island_food.webp",
+      title: "Island Food",
+      link: "https://www.instagram.com/island.of.food_london?igsh=MXBoOTRjMjJzaWgzdA%3D%3D",
+    },
+    {
+      imgPath: "/images/vendors/azz.jpg",
+      title: "Azz taste of Amalfi",
+      link: "https://www.instagram.com/azz_tasteofamalfi_london?igsh=cjAzdHh4YjJtY2x6",
+    },
+  ];
+  
   const abilities = [
     {
       imgPath: "/images/seo.png",
@@ -205,6 +268,7 @@ const navLinks = [
     words,
     abilities,
     VendorsLogoList,
+    vendorsName,
     counterItems,
     expCards,
     expLogos,

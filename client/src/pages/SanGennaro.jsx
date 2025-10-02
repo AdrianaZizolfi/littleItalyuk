@@ -39,7 +39,7 @@ const SanGennaro = () => {
       </div>
       
       <div className="px-6 mb-12">
-        <img src='/images/patrocinii.jpg' alt="Patrocinii" />
+        <img src='/images/patrocinii_.png' alt="Patrocinii" />
       </div>
 
       {/* Vendors Section 2025 - Full Width */}

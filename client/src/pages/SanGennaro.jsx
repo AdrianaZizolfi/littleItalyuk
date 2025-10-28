@@ -30,11 +30,11 @@ const SanGennaro = () => {
             {t("2025_description")}
           </p>
           
-          <Button 
+          {/* <Button 
             text={t("Prenota il Ticket")}
             className="md:w-80 md:h-16 w-60 h-12"
             onClick={() => setShowBookingModal(true)}
-          />
+          /> */}
         </div>
       </div>
       

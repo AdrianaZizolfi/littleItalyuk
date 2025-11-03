@@ -15,6 +15,7 @@ import SanGennaro from './pages/SanGennaro';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from "./pages/Login";
 import FashionShow from './pages/FashionShow';
+import ComingSoon from './components/ComingSoon';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("access");
@@ -25,11 +26,12 @@ const PrivateRoute = ({ children }) => {
 const Home = () => {
   return (
     <>
-      <Hero />
+      {/* <Hero />
       <ImageCarousel />
       <About />
       <Team />
-      <Contact />
+      <Contact /> */}
+      <ComingSoon />
     </>
   );
 };
@@ -47,7 +49,7 @@ function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/merchandising" element={<Merchandising />} />
@@ -57,7 +59,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </Suspense>
   )

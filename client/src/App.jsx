@@ -26,12 +26,12 @@ const PrivateRoute = ({ children }) => {
 const Home = () => {
   return (
     <>
-      {/* <Hero />
+      <Hero />
       <ImageCarousel />
       <About />
       <Team />
-      <Contact /> */}
-      <ComingSoon />
+      <Contact /> 
+      {/* <ComingSoon /> */}
     </>
   );
 };
